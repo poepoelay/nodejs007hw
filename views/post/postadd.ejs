@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<% include ../partial/head %>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="main-header">
+			<!-- Logo Header -->
+      <% include ../partial/header %>
+      <% include ../partial/navbar %>
+
+		</div>
+    <% include ../partial/sidebar %>
+
+		<!-- Sidebar -->
+
+
+
+		<!-- End Sidebar -->
+
+		<div class="main-panel">
+			<div class="content">
+				<div class="row">
+					<div class="col-md-8 col-lg-8">
+						<form  name="frm" class="" action="/posts/postadd" id="myform" method="post" >
+
+
+						<div class="form-group">
+							<label for="title">Title</label>
+							<input type="text" name="title" class="form-control" id="title" placeholder="Enter Title">
+
+            <div class="form-group">
+              <label for="content">Content</label>
+              <input type="text" name="content" class="form-control" id="content" placeholder="Enter Content">
+
+            </div>
+
+
+            <div class="form-group">
+              <label for="author">Author</label>
+              <select class="form-control" name="author" id="author">
+                <% for(var i=0;i<users.length;i++){%>
+                  <option value="<%= users[i]._id%>"><%= users[i].name %></option>
+                  <%}%>
+                </select>
+              </div>
+
+        <div class="card-action">
+				<button type="submit" id="sub" class="btn btn-success">Sign up</button>
+
+			</div>
+		</div>
+	</form>
+	</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+			<% include ../partial/footer %>
+
+
+		</div>
+  </div>
+  <!-- <% include ../partial/script %>
+<script src="/javascripts/jquery-3.4.1.js" charset="utf-8"></script>
+<script src="/javascripts/jquery.validate.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+$('#email').blur(function(){
+	var data={email:$('#email').val()};
+	if(data.email != ''){
+	$.ajax({url:'/duemail',data:data,type:'POST',
+success:function (result) {
+	if(result.status){
+		alert('Duplicate');
+		$('#email').val('');
+		$('#email').focus();
+
+
+
+	}
+	}
+
+
+})
+}
+})
+$('#myform').validate({
+	rules:{
+		Name:{
+			required:true,
+			minlength:3,
+			maxlength:20
+
+
+		},
+		email:{
+			required:true,
+			 emailExt: true
+		},
+		pwd:{
+			required:true,
+			minlength:6,
+			maxlength:20,
+			pwcheck:true
+
+		}
+	},
+	messages:{
+		Name:{
+			required:'User Name field is required'
+
+
+		},
+		email:{
+			required:'User Email is required'
+
+		},
+		pwd:{
+			required:'Password is required',
+			pwcheck:'Please enter 1 uppercase,1 lowercase,1 digit'
+		},
+		maxlength:$.validator.format("Please Insert max {0} character"),
+		minlength:$.validator.format("Please Insert atleast {0} character"),
+	}
+})
+jQuery.validator.addMethod("emailExt", function(value, element, param) {
+	return value.match(/^[a-zA-Z0-9_\.%\+\-]+@[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,}$/);
+},'Your E-mail is wrong');
+
+$.validator.addMethod("pwcheck", function(value) {
+ return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
+		 && /[a-z]/.test(value) // has a lowercase letter
+		 && /\d/.test(value) // has a digit
+});
+
+</script> -->
+</body>
+</html>
