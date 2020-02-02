@@ -10,6 +10,10 @@ var session=require('express-session');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var postsRouter = require('./routes/posts');
+var apiUsersRouter=require('./api/routes/users');
+var apiAdminRouter=require('./api/routes/admin');
+var apiPostRouter=require('./api/routes/posts');
+
 
 var app = express();
 
@@ -27,7 +31,9 @@ app.use(session({
   resave:false,
   saveunintialized:true
 }))
+// mongoose.connect('mongodb://127.0.0.1/mynodejs007');
 mongoose.connect('mongodb+srv://yadanar:yadanar123@nodejs-pjcce.mongodb.net/test?retryWrites=true&w=majority');
+
 var db=mongoose.connection;
 db.on('error',console.error.bind(console,'MongoDB connection error:'));
 app.use(function (req,res,next) {
@@ -36,6 +42,11 @@ app.use(function (req,res,next) {
 
 })
 app.use('/', indexRouter);
+app.use('/api',apiAdminRouter);
+app.use('/api/users',apiUsersRouter);
+app.use('/api/posts',apiPostRouter);
+
+
 app.use(function (req,res,next) {
   if(req.session.user){
     next();
@@ -46,6 +57,7 @@ app.use(function (req,res,next) {
 })
 app.use('/users', usersRouter);
 app.use('/posts',postsRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
